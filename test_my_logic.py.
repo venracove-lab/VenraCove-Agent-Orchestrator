@@ -1,0 +1,17 @@
+# MOCK TEST - 100% FREE
+import json
+
+def mock_test():
+    print("--- STARTING VENRACOVE MOCK TEST ---")
+    user_input = "My internet is slow"
+    
+    # Simulating the logic you pasted earlier
+    if "internet" in user_input:
+        print(f"User said: {user_input}")
+        print("AI Result: Troubleshooting protocol initiated.")
+        print("Status: SUCCESS (Mock)")
+    else:
+        print("Status: FAILED")
+    print("--- TEST COMPLETE - COST: $0.00 ---")
+
+mock_test()
