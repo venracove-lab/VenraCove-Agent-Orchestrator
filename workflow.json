@@ -1,10 +1,25 @@
 {
-  "StartAt": "VenraCoveAgentState",
+  "Comment": "ReAct Pattern Implementation for VenraCove Support",
+  "StartAt": "ParseUserRequest",
   "States": {
-    "VenraCoveAgentState": {
+    "ParseUserRequest": {
       "Type": "Task",
-      "Resource": "arn:aws:lambda:us-east-1:123456789012:function:VenraCoveAgent",
-      "End": true
-    }
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Next": "DetermineAction"
+    },
+    "DetermineAction": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Next": "ActionChoice"
+    },
+    "ActionChoice": {
+      "Type": "Choice",
+      "Choices": [
+        { "Variable": "$.actionType", "StringEquals": "troubleshoot", "Next": "TroubleshootingAction" }
+      ],
+      "Default": "GenerateResponse"
+    },
+    "TroubleshootingAction": { "Type": "Task", "Resource": "arn:aws:states:::lambda:invoke", "Next": "GenerateResponse" },
+    "GenerateResponse": { "Type": "Task", "Resource": "arn:aws:states:::lambda:invoke", "End": true }
   }
 }
